@@ -1,4 +1,4 @@
-package com.bxing.bordercrossing.tjhobbies;
+package com.xrg.application.tjpoints;
 
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
