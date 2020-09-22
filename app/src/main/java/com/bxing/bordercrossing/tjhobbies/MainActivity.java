@@ -166,78 +166,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //PARA LLAMAER PHP 1.
-    public void getItemsAllPhp()
-    {
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                final String res = getItemsAll();
-                Log.d("ITEMSALL JSON","*** ALL: " + res);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        int r = objJSON(res);
-                        if (r > 0) {
-                            GetJSonItemsAll(res);  //Llena StrSitios array.
-                        } else {
-                            Toast.makeText(getApplicationContext(),
-                                    "No items found.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        };
-        thread.start();
-    }
-
-
-    /*
-   Get Json Data from JsonObjects getItemsAll.
-    */
-    public void GetJSonItemsAll(String resp){
-
-        try {
-            StrSitios = new ArrayList(); //Para guardar los sitios.
-            JSONArray sitios = new JSONArray(resp);
-
-            // looping through All records.
-            for(int i = 0; i < sitios.length(); i++){
-                JSONObject s = sitios.getJSONObject(i);
-                String datos="";
-
-                // Storing each json item in variable
-                String clave = s.getString("clave");
-                String nombre = s.getString("nombre");
-                String direccion = s.getString("direccion");
-                String telefono = s.getString("telefono");
-                String email = s.getString("email");
-                String url = s.getString("url");
-                String latitud = s.getString("latitud");
-                String longitud = s.getString("longitud");
-                String socialnet = s.getString("socialnet");
-                String categoria = s.getString("categoria");
-
-                String distancia  = String.format ("%.2f",(getDistancias(mylat, mylong, latitud, longitud)/1000));
-
-                Log.d("JSONDATA","distancia/1000kms = " + distancia);
-
-                datos = clave + ","+nombre+","+direccion+","+telefono+","+ email+"," + url+","
-                        +latitud+","+longitud+","+socialnet+","+categoria+","+ distancia;
-
-                Log.d("JSONDATA","datos = " + datos);
-
-                StrSitios.add(datos);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            //Error al guardar los sitios en array.
-        }
-    }
-
-    //LLAMAR EL SERVICIO 2.
+       //LLAMAR EL SERVICIO 2.
     public String getItemsAll(){
         String parametros = "";
         HttpURLConnection conn = null;
@@ -258,8 +187,6 @@ public class MainActivity extends AppCompatActivity {
             while(inStream.hasNextLine()){
                 respuesta+=(inStream.nextLine());
             }
-
-            Log.d("ITEMSALL","ITEMS : " + respuesta);
 
         }catch (IOException e){
             e.printStackTrace();
@@ -301,32 +228,6 @@ public class MainActivity extends AppCompatActivity {
         sitiosThread.start();
     }
 
-
-    //PARA LLAMAER PHP 1.
-    public void getItemsSelectedPhp()
-    {
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                final String res = enviarCatPhp(GlobalValues.getcategorySelected());
-                Log.d("objJSON","objJSON to split: " + res);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        int r = objJSON(res);
-                        if (r > 0) {
-                            GetJSonData(res);
-                        } else {
-                            Toast.makeText(getApplicationContext(),
-                                    "No items found.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        };
-        thread.start();
-    }
 
     /*
     Get Json Data from JsonObjects.
@@ -374,37 +275,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //LLAMAR EL SERVICIO. 2.
-    public String enviarCatPhp(String categoria){
-        String parametros = "categoria="+categoria+"&categoria1="+categoria;
-        HttpURLConnection conn = null;
-        String respuesta = "";
-
-        try{
-            //URL url = new URL("http://androidserver.webcindario.com/login.php");
-            URL url = new URL("https://flagrant-fiber.000webhostapp.com/getItems.php");
-            Log.d("URL URL","URL= " + url);
-            Log.d("CATEGORIA","params...: " + parametros);
-
-            conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Length", ""+Integer.toString(parametros.getBytes().length));
-            conn.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-            wr.writeBytes(parametros);
-            wr.close();
-            Scanner inStream = new Scanner(conn.getInputStream());
-
-            while(inStream.hasNextLine()){
-                respuesta+=(inStream.nextLine());
-            }
-
-        }catch (IOException e){
-            e.printStackTrace();
-            Log.d("WORKING","No se pudo conectar a la base de datos: " + conn);
-        }
-        return respuesta.toString();
-    }
+    
 
     public int objJSON (String respJson){
         int resj = 0;
