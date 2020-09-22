@@ -73,11 +73,8 @@ public class ListaItems extends AppCompatActivity {
             data.setCategoria(fields[9]);
             data.setDistancia(fields[10]);
 
-            Log.d("DISTANCIA-DATAMODEL", "GET DISTANCIA:" + data.getDistancia());
             dataItems.add(data);
         }
-
-        //removedItems = new ArrayList<Integer>();
 
         //Previo ordenamiento del dataItems array.
         if (GlobalValues.getModoSel().equals("2")){
@@ -124,10 +121,6 @@ public class ListaItems extends AppCompatActivity {
                 return d1.distancia.compareTo(d2.distancia);
             }
         });
-        for (int i=0; i<dataItems.size(); i++){
-            Log.d("ORDENADISTANCIA","nombre: " + dataItems.get(i).nombre + " dist: "+ dataItems.get(i).distancia);
-        }
-        //Log.d("ORDENADISTANCIA","dataitems: "+ dataItems);
     }
 
 
@@ -160,24 +153,11 @@ public class ListaItems extends AppCompatActivity {
                 }
             }
 
-            //Toast.makeText(context, "Nothing to add="+selectedItemId, Toast.LENGTH_SHORT).show();
-
             GlobalValues.setitemSelected(String.valueOf(selectedItemId));
-
-            //LlamaDescripcion();
-
-            /*
-            removedItems.add(selectedItemId);
-            data.remove(selectedItemPosition);
-            adapter.notifyItemRemoved(selectedItemPosition);
-             */
         }
     }
 
     public void  LlamaDescripcion(View v){
-
-        //Toast.makeText(this, "Llama categoria="+GlobalValues.getcategorySelected(),
-        //        Toast.LENGTH_SHORT).show();
 
         int selectedItemPosition = recyclerView.getChildPosition(v);
         Log.d("POSITION ITEM", "POS:" + selectedItemPosition);
@@ -193,8 +173,6 @@ public class ListaItems extends AppCompatActivity {
         String selectedTel = (String) textViewTel.getText();
         String selectedDis = (String) textViewDis.getText();
 
-        Log.d("DTOS SELECCIONADOS", "nombre, direcc, telef:" + selectedNom +"-" + selectedDir +"-"+ selectedTel);
-
         //Informacion completa del item.
         clave = dataItems.get(selectedItemPosition).clave;
         email = dataItems.get(selectedItemPosition).email;
@@ -203,7 +181,6 @@ public class ListaItems extends AppCompatActivity {
         longitud= dataItems.get(selectedItemPosition).longitud;
         socialnet= dataItems.get(selectedItemPosition).socialnet;
 
-        Log.d("DTOS SELECCIONADOS", "clave, lat, lon:" + clave +"-" + latitud +"-"+ longitud);
 
         Intent intent = new Intent(this, ItemDescription.class);
         intent.putExtra("position", selectedItemPosition);
@@ -235,22 +212,12 @@ public class ListaItems extends AppCompatActivity {
             if (removedItems.size() != 0) {
                 addRemovedItemToList();
             } else {
-                //Toast.makeText(this, "Nothing to add", Toast.LENGTH_SHORT).show();
             }
         }
         return true;
     }
 
     private void addRemovedItemToList() {
-       /* int addItemAtListPosition = 3;
-        data.add(addItemAtListPosition, new DataModel(
-                MyData.nameArray[removedItems.get(0)],
-                MyData.versionArray[removedItems.get(0)],
-                MyData.id_[removedItems.get(0)],
-                MyData.drawableArray[removedItems.get(0)]
-        ));
-        adapter.notifyItemInserted(addItemAtListPosition);
-        removedItems.remove(0);*/
-    }
+           }
 
 }//fin clase
