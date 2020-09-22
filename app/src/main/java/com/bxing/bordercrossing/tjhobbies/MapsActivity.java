@@ -1,4 +1,4 @@
-package com.bxing.bordercrossing.tjhobbies;
+package com.xrg.application.tjpoints;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -27,8 +27,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         latitud =  Double.parseDouble(getIntent().getStringExtra("latitud"));
         longitud =   Double.parseDouble(getIntent().getStringExtra("longitud"));
 
-        //espada = new LatLng(32.517759, -117.009509);
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -50,9 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        //googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        //googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        //googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+
         //Zoom.
         googleMap.getUiSettings().setZoomGesturesEnabled(true); // false to disable
 
