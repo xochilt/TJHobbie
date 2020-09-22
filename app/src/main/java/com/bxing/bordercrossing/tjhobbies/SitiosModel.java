@@ -1,4 +1,4 @@
-package com.bxing.bordercrossing.tjhobbies;
+package com.xrg.application.tjpoints;
 
 public class SitiosModel {
 
