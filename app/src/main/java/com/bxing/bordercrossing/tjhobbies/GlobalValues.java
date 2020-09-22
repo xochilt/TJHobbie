@@ -1,4 +1,4 @@
-package com.bxing.bordercrossing.tjhobbies;
+package com.xrg.application.tjpoints;
 
 import java.util.ArrayList;
 
