@@ -1,4 +1,4 @@
-package com.bxing.bordercrossing.tjhobbies;
+package com.xrg.application.tjpoints;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,9 +32,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.function.Function;
-
-//Imagenes
-//https://img.fenixzone.net/es/
 
 
 public class MainActivity extends AppCompatActivity {
@@ -146,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.btnTodos:
-                //progressBar3.setVisibility(View.VISIBLE);
                 //Todos los sitios.
                 GlobalValues.setCategorySelected("1000");
                 GlobalValues.setModoSel("2");
@@ -155,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.btnCloser:
-                //progressBar3.setVisibility(View.VISIBLE);
                 //Mas cercanos a mi ubicacion geografica.
                 GlobalValues.setCategorySelected("1001");
                 GlobalValues.setModoSel("3");
@@ -165,35 +160,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-       //LLAMAR EL SERVICIO 2.
-    public String getItemsAll(){
-        String parametros = "";
-        HttpURLConnection conn = null;
-        String respuesta = "";
-
-        try{
-            URL url = new URL("https://flagrant-fiber.000webhostapp.com/getItemsAll.php");
-            Log.d("URL URL","URL= " + url);
-            conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Length", ""+Integer.toString(parametros.getBytes().length));
-            conn.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-            wr.writeBytes(parametros);
-            wr.close();
-            Scanner inStream = new Scanner(conn.getInputStream());
-
-            while(inStream.hasNextLine()){
-                respuesta+=(inStream.nextLine());
-            }
-
-        }catch (IOException e){
-            e.printStackTrace();
-            Log.d("WORKING","No se pudo conectar a la base de datos: " + conn);
-        }
-        return respuesta.toString();
-    }
 
     /*
     * Despliega los items devueltos por el servicio web. 3.
@@ -255,16 +221,10 @@ public class MainActivity extends AppCompatActivity {
                 String socialnet = s.getString("socialnet");
                 String categoria = s.getString("categoria");
 
-                Log.d("GETDISTANCIA","nombre: "+ nombre);
                 String distancia  = String.format ("%.2f",(getDistancias(mylat, mylong, latitud, longitud)/1000));
-
-                //Log.d("DISTANCIA EN MTS","METROSS : " + distancia);
-                Log.d("DISTANCIA","ITEM: "+ nombre+" distancia/1000kms = " + distancia);
 
                 datos = clave + ","+nombre+","+direccion+","+telefono+","+ email+"," + url+","
                         +latitud+","+longitud+","+socialnet+","+categoria+","+ distancia;
-
-                Log.d("JSONDATA","datos = " + datos);
 
                 StrSitios.add(datos);
             }
@@ -370,9 +330,6 @@ public class MainActivity extends AppCompatActivity {
      * */
     public Double getDistancias (String latA, String lonA, String latB, String lonB){
 
-        Log.d("DISTANCIA","lat-longA : " + latA+ "***"+lonA);
-        Log.d("DISTANCIA","lat-longB : " + latB+ "***"+lonB);
-
         Location locationA = new Location("punto A");
 
         locationA.setLatitude(Double.parseDouble(latA.trim()));
@@ -382,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
 
         locationB.setLatitude(Double.parseDouble(latB.trim()));
 
-        locationB.setLongitude(Double.parseDouble(lonB.trim())); /////////////
+        locationB.setLongitude(Double.parseDouble(lonB.trim())); 
 
         double distance = locationA.distanceTo(locationB);
 
