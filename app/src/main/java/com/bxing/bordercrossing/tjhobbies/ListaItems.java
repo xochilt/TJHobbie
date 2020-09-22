@@ -53,8 +53,6 @@ public class ListaItems extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         listaSitios = (ArrayList<String>) getIntent().getSerializableExtra("listaSitios");
 
-        //Toast.makeText(this, "Listasitios size:"+listaSitios.size(), Toast.LENGTH_SHORT).show();
-
         dataItems = new ArrayList<DataModel>();
 
         for (int i = 0; i < listaSitios.size(); i++) {
@@ -87,10 +85,8 @@ public class ListaItems extends AppCompatActivity {
             getCloserItems();
 
             for (int i=0; i<dataItems.size(); i++){
-                //Log.d("ORDENADISTANCIA","nombre: " + dataItems.get(i).nombre + " dist: "+ dataItems.get(i).distancia);
+
                 if (Double.parseDouble((dataItems.get(i).distancia)) > Double.parseDouble("3.00")){
-                    //Log.d("REMOVE ITEM","double value" +Double.parseDouble(dataItems.get(i).distancia));
-                    //Log.d("REMOVE ITEM","nombre: " + dataItems.get(i).nombre + " dist: "+ dataItems.get(i).distancia);
                     dataItems.remove(i);
                 }
             }
@@ -98,9 +94,7 @@ public class ListaItems extends AppCompatActivity {
 
         adapter = new CustomAdapter(dataItems);
         recyclerView.setAdapter(adapter);
-
-        //progressBar.setVisibility(View.INVISIBLE);
-    }//fin oncreate
+    }//
 
 
     //ordena array alfabeticamente x nombre.
@@ -160,7 +154,7 @@ public class ListaItems extends AppCompatActivity {
     public void  LlamaDescripcion(View v){
 
         int selectedItemPosition = recyclerView.getChildPosition(v);
-        Log.d("POSITION ITEM", "POS:" + selectedItemPosition);
+      
         RecyclerView.ViewHolder viewHolder
                 = recyclerView.findViewHolderForPosition(selectedItemPosition);
         TextView textViewNom = (TextView) viewHolder.itemView.findViewById(R.id.txtnombre);
@@ -220,4 +214,4 @@ public class ListaItems extends AppCompatActivity {
     private void addRemovedItemToList() {
            }
 
-}//fin clase
+}
